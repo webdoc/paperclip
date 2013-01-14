@@ -28,7 +28,16 @@ module Paperclip
       if logging? && (options[:log_command] || local_options[:log_command])
         local_options = local_options.merge(:logger => logger)
       end
-      Cocaine::CommandLine.new(cmd, arguments, local_options).run(interpolation_values)
+      begin
+        Cocaine::CommandLine.new(cmd, arguments, local_options).run(interpolation_values)
+      rescue e
+        puts "An error happend when running the following command :"
+        puts "cmd: #{cmd.inspect}"
+        puts "arguments: #{arguments.inspect}"
+        puts "local_options: #{local_options.inspect}"
+        puts "interpolation_values: #{interpolation_values.inspect}"
+        puts "Error was: #{e.inspect}"
+      end
     end
 
     # Find all instances of the given Active Record model +klass+ with attachment +name+.
