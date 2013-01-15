@@ -30,7 +30,7 @@ module Paperclip
       end
       begin
         Cocaine::CommandLine.new(cmd, arguments, local_options).run(interpolation_values)
-      rescue e
+      rescue Exception => e
         puts "An error happend when running the following command :"
         puts "cmd: #{cmd.inspect}"
         puts "arguments: #{arguments.inspect}"
